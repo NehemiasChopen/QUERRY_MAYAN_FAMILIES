@@ -1,0 +1,9 @@
+SELECT 
+em.cod_empleado AS 'CODIGO EMPLEADO',
+em.nombre_empleado AS 'NOMBRE EMPLEADO',
+em.puesto_empleado AS 'PUESTO',
+AVG(reg.hora_registro) AS 'PROMEDIO HORA INGRESO'
+FROM tb_registro AS reg
+INNER JOIN tb_empleado AS em ON em.id_empleado = reg.id_empleado
+WHERE reg.hora_registro
+GROUP BY em.cod_empleado
