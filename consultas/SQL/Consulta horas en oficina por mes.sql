@@ -7,7 +7,7 @@ MIN(reg.fecha_registro) AS 'DESDE',
 MAX(reg.fecha_salida) as 'HASTA',
 
 -- CALCULO DE HORAS EN OFICINA AL MES
-(SUM(REPLACE(reg.hora_salida,':','')) - (SUM(REPLACE(reg.hora_registro,':','')))) / 100  AS 'HORAS EN OFICINA'
+SUBTIME(SEG_TO_TIME(SUM(TIME_TO_SEC(reg.hora_salida))), SEC_TO_TIME(SUM(TIME_TO_SEC(reg.hora_registro)))) AS 'HORAS EN OFICINA'
 
 FROM tb_registro AS reg
 INNER JOIN tb_empleado AS em ON em.id_empleado = reg.id_empleado
