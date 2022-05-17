@@ -6,8 +6,8 @@ em.puesto_empleado AS 'PUESTO',
 MIN(reg.fecha_registro) AS 'DESDE',
 MAX(reg.fecha_salida) AS 'HASTA',
 
--- CALCULO DE MINUTOS TARDE
-SUM(REPLACE(reg.hora_registro,':','')) - (COUNT(reg.hora_registro) * 906)  AS 'MINUTOS TARDE'
+-- CÁLCULO DE MINUTOS TARDE
+SUBTIME(SEC_TO_TIME(SUM(TIME_TO_SEC(reg.hora_registro))), SEC_TO_TIME(COUNT(reg.hora_registro) * 32760)) AS 'TIEMPO TARDE' -- 32760 es 09:06 en segundos
  
 FROM tb_registro AS reg
 INNER JOIN tb_empleado AS em ON em.id_empleado = reg.id_empleado
